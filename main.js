@@ -113,6 +113,10 @@
     if (!ctx) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // 手机/触控：不做全画布折射（掉帧），只保留静态台阶 + 轻涟漪圆
+    const LITE =
+      window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+      Math.min(window.innerWidth, window.innerHeight) < 768;
     let cssW = 0;
     let cssH = 0;
     let dpr = 1;
@@ -359,6 +363,33 @@
     }
 
     function frame(now) {
+      if (LITE) {
+        // 轻量：静态底图 + 振源圆纹，不跑高度场
+        if (needsRedrawSrc) paintSource();
+        ctx.clearRect(0, 0, cssW, cssH);
+        if (src) ctx.drawImage(src, 0, 0, cssW, cssH);
+        if (emitter) {
+          const life = (now - emitter.t0) / SOURCE_LIFE;
+          if (life >= 1) {
+            emitter = null;
+          } else {
+            const r = 18 + life * 90;
+            const a = (1 - life) * 0.28;
+            ctx.beginPath();
+            ctx.arc(emitter.x, emitter.y, r, 0, Math.PI * 2);
+            ctx.strokeStyle = "rgba(196, 92, 38, " + a + ")";
+            ctx.lineWidth = 1.6;
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(emitter.x, emitter.y, r * 0.55, 0, Math.PI * 2);
+            ctx.strokeStyle = "rgba(44, 74, 110, " + a * 0.5 + ")";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+        requestAnimationFrame(frame);
+        return;
+      }
       stepWave(now || performance.now());
       render();
       requestAnimationFrame(frame);

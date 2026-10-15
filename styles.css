@@ -1208,3 +1208,182 @@ body.has-cursor .cursor-fx.is-on {
 #lens-stage .btn {
   text-decoration: none;
 }
+
+/* ============ 手机端适配 ============ */
+
+@media (max-width: 800px) {
+  /* 版心与呼吸感 */
+  body {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .wrap,
+  .shell {
+    width: min(var(--max), calc(100% - 1.75rem));
+  }
+
+  .hero {
+    padding: 3.25rem 0 3rem;
+  }
+
+  .name {
+    font-size: clamp(2.65rem, 12vw, 3.6rem);
+  }
+
+  .tagline {
+    font-size: 1.15rem;
+    max-width: none;
+  }
+
+  .hero-meta {
+    font-size: 0.9rem;
+  }
+
+  .hero-cta {
+    width: 100%;
+  }
+
+  .hero-cta .btn {
+    flex: 1 1 auto;
+    min-height: 2.85rem;
+    padding: 0.85rem 1rem;
+    justify-content: center;
+  }
+
+  /* 章节 */
+  .section {
+    padding: 2rem 0 2.35rem;
+  }
+
+  .section-head h2 {
+    font-size: 1.45rem;
+  }
+
+  .pullquote p {
+    font-size: 1.15rem;
+  }
+
+  .cards {
+    gap: 0.75rem;
+  }
+
+  .card {
+    padding: 1.05rem 1rem 1.15rem;
+  }
+
+  .shot img {
+    border-radius: 3px;
+  }
+
+  /* 下载区竖排、大点触 */
+  .dl-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dl-row .btn {
+    width: 100%;
+    min-height: 2.85rem;
+    justify-content: center;
+  }
+
+  /* 联系行：触控友好 */
+  .contact .links {
+    width: 100%;
+  }
+
+  .contact .links li {
+    grid-template-columns: 5.25rem 1fr;
+    gap: 0.65rem;
+    padding: 0.95rem 0;
+  }
+
+  .contact .links a {
+    word-break: break-all;
+    font-size: 1rem;
+  }
+
+  .contact .link-stack a {
+    font-size: 1rem;
+    line-height: 1.55;
+    min-height: 1.75rem;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* TOC：横滑 + 边缘提示 */
+  .toc {
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(90deg, #000 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent 100%);
+    padding: 0.65rem 0 0.25rem;
+    margin: 0 0 0.35rem;
+  }
+
+  .toc-list {
+    gap: 0.3rem;
+    padding: 0 0.15rem 0.55rem;
+  }
+
+  .toc-link {
+    min-height: 2.35rem;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.88rem;
+    touch-action: manipulation;
+  }
+
+  /* 按压反馈（替代 hover 磁吸） */
+  .btn,
+  .toc-link {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.12s ease, background 0.15s ease, color 0.15s ease;
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .toc-link:active {
+    background: rgba(196, 92, 38, 0.12);
+  }
+
+  /* 正文链接更易点中 */
+  .section-body a,
+  .links a {
+    padding: 0.15rem 0;
+    display: inline-flex;
+    min-height: 1.75rem;
+    align-items: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* 波面高度略收，避免小屏压内容 */
+  .hero-canvas {
+    height: 150px;
+    opacity: 0.95;
+  }
+
+  /* 安全区（刘海屏） */
+  .footer {
+    padding-bottom: calc(1.75rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* 触控设备：不强制光标样式 */
+@media (hover: none), (pointer: coarse) {
+  body.has-cursor,
+  body.has-cursor * {
+    cursor: auto !important;
+  }
+
+  .cursor-fx {
+    display: none !important;
+  }
+
+  .hero-glow {
+    display: none !important;
+  }
+}
