@@ -1224,7 +1224,7 @@ body.has-cursor .cursor-fx.is-on {
   }
 
   .hero {
-    padding: 3.25rem 0 3rem;
+    padding: 3.25rem 0 6.75rem;
   }
 
   .name {
@@ -1238,10 +1238,16 @@ body.has-cursor .cursor-fx.is-on {
 
   .hero-meta {
     font-size: 0.9rem;
+    line-height: 1.55;
+    max-width: 22em;
   }
 
   .hero-cta {
     width: 100%;
+    position: relative;
+    z-index: 2;
+    margin-top: 0.5rem;
+    /* 按钮底压住波线，避免穿插 */
   }
 
   .hero-cta .btn {
@@ -1249,6 +1255,14 @@ body.has-cursor .cursor-fx.is-on {
     min-height: 2.85rem;
     padding: 0.85rem 1rem;
     justify-content: center;
+    box-shadow: 0 1px 0 rgba(244, 240, 232, 0.85), 0 0 0 2px var(--paper);
+  }
+
+  /* 波面沉到底边，不与按钮交叠 */
+  .hero-canvas {
+    height: 100px;
+    opacity: 0.5;
+    z-index: 1;
   }
 
   /* 章节 */
@@ -1361,10 +1375,6 @@ body.has-cursor .cursor-fx.is-on {
   }
 
   /* 波面高度略收，避免小屏压内容 */
-  .hero-canvas {
-    height: 150px;
-    opacity: 0.95;
-  }
 
   /* 安全区（刘海屏） */
   .footer {
